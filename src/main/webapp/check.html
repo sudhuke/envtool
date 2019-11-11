@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<TITLE>envtool-Environment Details</TITLE>
+<SCRIPT LANGUAGE="JavaScript">
+
+function validateForm()
+{
+var count=0;
+var msg="";
+
+    for(i=0;i<=7;i++)
+    {
+        if(document.env.elements[i].value=="")
+        {
+        count=1;
+        msg=msg+"\n"+document.env.elements[i].name;
+        }
+        else if((i>5) && (count==0))
+        {
+        if(document.env.elements[5].value!=document.env.elements[6].value)
+        {
+          alert(document.env.elements[5].name + " and re-entered Password are not same");
+          document.env.elements[6].focus();
+          return(false);
+        } 
+        else
+          return(true);
+        }
+    }
+    for(i=0;i<=7;i++)
+    {
+        if(document.env.elements[i].value=="")
+        {
+        alert("PLEASE FILL IN THE FOLLOWING FIELD(S)\n "+ msg);
+        document.env.elements[i].focus();
+        return(false);
+        }
+    }
+   
+}
+//-->
+</SCRIPT>
+</HEAD>
+
+<BODY>
+<CENTER>
+<FONT SIZE="5" COLOR="#006600" FACE="verdana">Enter Environment Details</FONT>
+</CENTER><BR><BR>
+<FORM METHOD=POST ACTION="putenvdetails.do" NAME="env">
+<TABLE ALIGN="CENTER">
+<TR>
+    <TD>Environment Type</TD>
+    <TD>
+            <select name="env">
+            <option value="cit"> CIT </option>
+            <option value="gotham"> Gotham </option>
+            </select>
+    </TD>
+    <TD>Release</TD>
+    <TD>
+            <select name="release">
+            <option value="eimph3b"> eimph3b </option>
+            <option value="eimph3b.1"> eimph3b.1 </option>
+            </select>
+    </TD>
+</TR>
+<TR></TR>
+
+<TR>
+    <TD>Url</TD>
+    <TD><INPUT TYPE="TEXT" NAME="url"></TD>
+</TR>
+<TR>
+    <TD>IP</TD>
+    <TD><INPUT TYPE="TEXT" NAME="ip"></TD>
+</TR>
+<TR>
+    <TD>Username</TD>
+    <TD><INPUT TYPE="TEXT" NAME="username"></TD>
+</TR>
+<TR>
+    <TD>Password</TD>
+    <TD><input type="password" name="password"></TD>
+</TR>
+<TR>
+    <TD>Re-Password</TD>
+    <TD><input type="password" name="Re-Password"></TD>
+</TR>
+<TR>
+    <TD><INPUT TYPE="SUBMIT" VALUE="Submit Form"
+    onClick="return validateForm()"></TD>
+    <TD><INPUT TYPE="RESET" VALUE="Reset"></TD>
+</TR>
+</TABLE>
+</FORM>
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+package com.envtool.util;
+import java.io.*;
+import java.util.*;
+import javax.servlet.*;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+
+public class IPFilter implements Filter{
+  public IPFilter() {}
+ public final static String IP = "127.0.0.1";
+ 
+  private FilterConfig filterConfig;
+  
+  public void init(FilterConfig config) throws ServletException{
+    this.filterConfig = config;
+  }
+  public void doFilter(ServletRequest request, ServletResponse response,FilterChain filterchain) throws IOException, ServletException {
+    response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
+    out.println("<html><head><title>Envtool-Verifying Access</title></head>");
+    String userip = request.getRemoteAddr();
+    HttpServletResponse httpResponse = null;
+   String propfile ;
+    if (response instanceof HttpServletResponse){
+      httpResponse = (HttpServletResponse) response;
+    }
+    boolean checkip=false;
+    Properties pro = new Properties();
+    try{
+	//InputStream in = this.getClass().getClassLoader().getResourceAsStream("iprange.properties"); 
+	//InputStream in = this.getClass().getResourceAsStream("../../../properties/iprange.properties");
+       /*propfile =  ServletContext.getRealPath("/iprange.properties");
+      FileInputStream in = new FileInputStream(propfile);*/
+	
+       ClassLoader loader = ClassLoader.getSystemClassLoader ();
+       //final ResourceBundle rb = ResourceBundle.getBundle ("iprange",Locale.getDefault(), loader);
+       //pro.load(in);
+       final ResourceBundle rb = ResourceBundle.getBundle ("iprange");
+       Enumeration em = rb.getKeys();
+       int i=0;
+       while (em.hasMoreElements()){
+        String str = (String)em.nextElement();
+        //String ip = pro.getProperty(str);
+        String ip = rb.getString(str);
+        //out.println(ip + i);
+        i=i+1;
+        if(userip.equals(ip) && ip.length() != 0){
+            filterchain.doFilter(request, response);
+            out.println("<body><h3><font color='green'>Passed successfully from IPFilter<font></h3></body></html>"+userip);
+            checkip=true;
+            //out.println(ip);
+            break;
+        }
+               }
+      }
+    catch(IOException e){
+	    System.out.println(e.getMessage());
+	    }
+    
+    if ( checkip != true )
+    {
+	   out.println("<body><h3><font color='red'>Your IP is "+ userip+" Please contact admin for access<font></h3></body></html>");
+       //httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN,"You are not allowed to access the servlet!");
+    }
+
+    }
+    
+   public void destroy() {}
+}

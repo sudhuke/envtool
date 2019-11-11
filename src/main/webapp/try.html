@@ -1,0 +1,87 @@
+<html>
+<title>environment Details </title>
+<body>
+<form name="env" method="post" action="putenvdetails.do">
+             Enter environment details:<p>
+             Environment:
+            <select name="env">
+            <option value="cit"> CIT </option>
+            <option value="gotham"> Gotham </option>
+            </select>
+            Release:
+            <select name="release">
+            <option value="eimph3b"> eimph3b </option>
+            <option value="eimph3b.1"> eimph3b.1 </option>
+            </select>
+	    <br>
+            <br>
+             Enter URL:<input type="text" name="url">
+	    <br>
+            <br>
+             Enter BOX IP:<input type="text" name="ip"/>
+            <br>
+            <br>
+             Enter Username:<input type="text" name="username">
+	    <br>
+            <br>
+             Enter Password:<input type="password" name="password">
+             <br>
+             <br>
+             Re-enter Password:<input type="password" name="rpassword">
+	    <br>
+            <br>
+	    <center>
+            <input type="submit" value="Post Details" omSubmit="checkWholeForm('env')"/></center>
+                     
+</form>
+<script type="javascript" src="validate.js">
+function checkWholeForm(theForm) {
+    var why = "";
+    why += checkURL(theForm.url.value);
+    why += checkIP(theForm.ip.value);
+    why += checkUsername(theForm.username.value);
+    why += checkPassword(theForm.password.value);
+    why += isEmpty(theForm.notempty.value);
+    why += isDifferent(theForm.different.value);
+    for (i=0, n=theForm.radios.length; i<n; i++) {
+        if (theForm.radios[i].checked) {
+            var checkvalue = theForm.radios[i].value;
+            break;
+        } 
+    }
+    why += checkRadio(checkvalue);
+    why += checkDropdown(theForm.choose.selectedIndex);
+    if (why != "") {
+       alert(why);
+       return false;
+    }
+return true;
+}
+function checkURL(strng) {
+ var error = "";
+ if (strng == "") {
+    error = "You didn't enter a url.\n";
+ }
+function checkIP (strng) {
+ var error = "";
+ if (strng == "") {
+    error = "You didn't enter a IP.\n";
+ }
+function checkUsername (strng) {
+ var error = "";
+ if (strng == "") {
+    error = "You didn't enter a username.\n";
+ }
+function checkPassword (strng) {
+ var error = "";
+ if (strng == "") {
+    error = "You didn't enter a password.\n";
+ }
+    
+
+
+</script>
+
+</body>
+</html>
+
