@@ -4,7 +4,7 @@
 
   <groupId>com.envtool</groupId>
   <artifactId>envtool</artifactId>
-  <version>1.0</version>
+  <version>2.0</version>
   <packaging>war</packaging>
 
   <name>envtool</name>
@@ -20,6 +20,13 @@
       		<artifactId>hibernate</artifactId>
       		<version>3.0</version>
       		</dependency>
+                <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+               <dependency>
+    		<groupId>javax.servlet</groupId>
+    		<artifactId>javax.servlet-api</artifactId>
+    		<version>3.0.1</version>
+    		<scope>provided</scope>
+		</dependency>
  </dependencies>
   <build>
         <finalName>envtool</finalName>
@@ -34,17 +41,17 @@
 		       	<plugin>
 		        	<groupId>org.apache.maven.plugins</groupId>
 		        	<artifactId>maven-compiler-plugin</artifactId>
-		        	<version>2.3</version>
+		        	<version>3.6.2</version>
 		        	<configuration>
-		          		<source>1.6</source>
-		          		<target>1.6</target>
+		          		<source>1.8</source>
+		          		<target>1.8</target>
 		        	</configuration>
 		      	</plugin>
                         
                         <plugin>
                               <groupId>org.apache.maven.plugins</groupId>
 		        	<artifactId>maven-war-plugin</artifactId>
-		        	<version>2.1.1</version>
+		        	<version>3.2.3</version>
                         </plugin>
                </plugins>
                 </pluginManagement> 
