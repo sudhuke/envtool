@@ -28,7 +28,14 @@
     		<scope>provided</scope>
 		</dependency>
  </dependencies>
-  <build>
+ <distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>envtool-maven</name>
+        <url>http://localhost:8081/artifactory/envtool-maven</url>
+    </repository>
+</distributionManagement>
+ <build>
         <finalName>envtool</finalName>
       	<pluginManagement>
          	<plugins>
